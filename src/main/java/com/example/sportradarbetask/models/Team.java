@@ -19,7 +19,7 @@ public class Team {
     @JoinColumn(name = "_sport", nullable = false)
     private Sport sport;
 
-    @ManyToMany(mappedBy = "team")
+    @ManyToMany(mappedBy = "teams")
     private List<Event> event;
 
     public Team() {

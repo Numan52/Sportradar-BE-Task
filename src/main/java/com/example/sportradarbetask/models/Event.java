@@ -2,7 +2,6 @@ package com.example.sportradarbetask.models;
 
 import jakarta.persistence.*;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -29,19 +28,19 @@ public class Event {
             joinColumns = @JoinColumn(name = "_event_id"),
             inverseJoinColumns = @JoinColumn(name = "_team_id")
     )
-    private List<Team> team;
+    private List<Team> teams;
 
 
     public Event() {
     }
 
-    public Event(Long eventId, LocalDate date, String description, int entranceFee, Venue venue, List<Team> team) {
+    public Event(Long eventId, LocalDate date, String description, int entranceFee, Venue venue, List<Team> teams) {
         this.eventId = eventId;
         this.date = date;
         this.description = description;
         this.entranceFee = entranceFee;
         this.venue = venue;
-        this.team = team;
+        this.teams = teams;
     }
 
     public Long getEventId() {
@@ -84,11 +83,11 @@ public class Event {
         this.venue = venue;
     }
 
-    public List<Team> getTeam() {
-        return team;
+    public List<Team> getTeams() {
+        return teams;
     }
 
-    public void setTeam(List<Team> team) {
-        this.team = team;
+    public void setTeams(List<Team> team) {
+        this.teams = team;
     }
 }
