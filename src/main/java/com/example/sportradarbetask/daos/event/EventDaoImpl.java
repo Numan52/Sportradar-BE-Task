@@ -25,7 +25,7 @@ public class EventDaoImpl implements EventDao {
     @Override
     @Transactional
     public void save(Event event) {
-        entityManager.persist(event);
+        entityManager.merge(event);
     }
 
     @Override

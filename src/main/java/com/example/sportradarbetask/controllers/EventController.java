@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -22,15 +23,20 @@ public class EventController {
     @GetMapping("/api/events/getEvents")
     public ResponseEntity<?> getEvents() {
         List<Event> events = eventService.getAllEvents();
-        System.out.println(events.get(0));
+        List<EventDto> eventDtos = new ArrayList<>();
+
+
+        for (Event event : events) {
+            eventDtos.add(eventService.toDto(event));
+        }
         // to Dto
-        return ResponseEntity.ok(events);
+        return ResponseEntity.ok(eventDtos);
     }
 
     @PutMapping("api/events/addEvent")
     public ResponseEntity<?> addEvent(@RequestBody EventDto eventDto) {
         Event event = eventService.dtoToEvent(eventDto);
         eventService.addEvent(event);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok("Event was successfully added");
     }
 }

@@ -11,7 +11,9 @@ import com.example.sportradarbetask.models.Venue;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class EventService {
@@ -45,12 +47,28 @@ public class EventService {
         eventDao.delete(id);
     }
 
+    public EventDto toDto(Event event) {
+        EventDto eventDto = new EventDto();
+        eventDto.setEventId(event.getEventId());
+        eventDto.setDate(eventDto.getDate());
+        eventDto.setDescription(event.getDescription());
+        eventDto.setEntranceFee(eventDto.getEntranceFee());
+        eventDto.setVenueName(event.getVenue().getName());
+        eventDto.setVenueAddress(event.getVenue().getAddress());
+
+        Set<Long> teamIds = new HashSet<>();
+        event.getTeams().forEach((team) -> teamIds.add(team.getTeamId()));
+        eventDto.setTeamIds(teamIds);
+
+        return eventDto;
+    }
+
     public Event dtoToEvent(EventDto eventDto) {
         Event event = new Event();
 
-        Venue venue = venueDao.findById(eventDto.getVenueId());
+        Venue venue = venueDao.findByNameAndAddress(eventDto.getVenueName(), eventDto.getVenueAddress());
         if (venue == null) {
-            throw new ResourceNotFoundException("Venue was not found with ID: " + eventDto.getEventId());
+            throw new ResourceNotFoundException("Venue was not found with name: " + eventDto.getVenueName());
         }
 
         List<Team> teams = new ArrayList<>();
@@ -63,7 +81,8 @@ public class EventService {
         }
 
         event.setEventId(eventDto.getEventId());
-        event.setDate(event.getDate());
+        event.setDate(eventDto.getDate());
+        event.setDescription(eventDto.getDescription());
         event.setEntranceFee(eventDto.getEntranceFee());
         event.setVenue(venue);
         event.setTeams(teams);

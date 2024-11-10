@@ -2,6 +2,8 @@ package com.example.sportradarbetask.config;
 
 import com.example.sportradarbetask.daos.event.EventDao;
 import com.example.sportradarbetask.daos.event.EventDaoImpl;
+import com.example.sportradarbetask.daos.team.TeamDao;
+import com.example.sportradarbetask.daos.team.TeamDaoImpl;
 import com.example.sportradarbetask.daos.venue.VenueDao;
 import com.example.sportradarbetask.daos.venue.VenueDaoImpl;
 import org.springframework.context.annotation.Bean;
@@ -17,5 +19,9 @@ public class DaoConfig {
     @Bean
     public VenueDao getVenueDao() {
         return new VenueDaoImpl();
+    }
+    @Bean
+    public TeamDao getTeamDao() {
+        return new TeamDaoImpl();
     }
 }

@@ -8,15 +8,19 @@ public class EventDto {
     private LocalDate date;
     private String description;
     private int entranceFee;
-    private Long venueId;
+    private String venueName;
+    private String venueAddress;
     private Set<Long> teamIds;
 
-    public EventDto(Long eventId, LocalDate date, String description, int entranceFee, Long venueId, Set<Long> teamIds) {
+    public EventDto(){};
+
+    public EventDto(Long eventId, LocalDate date, String description, int entranceFee, String venueName, String venueAddress, Set<Long> teamIds) {
         this.eventId = eventId;
         this.date = date;
         this.description = description;
         this.entranceFee = entranceFee;
-        this.venueId = venueId;
+        this.venueName = venueName;
+        this.venueAddress = venueAddress;
         this.teamIds = teamIds;
     }
 
@@ -52,12 +56,20 @@ public class EventDto {
         this.entranceFee = entranceFee;
     }
 
-    public Long getVenueId() {
-        return venueId;
+    public String getVenueName() {
+        return venueName;
     }
 
-    public void setVenueId(Long venueId) {
-        this.venueId = venueId;
+    public void setVenueName(String venueName) {
+        this.venueName = venueName;
+    }
+
+    public String getVenueAddress() {
+        return venueAddress;
+    }
+
+    public void setVenueAddress(String venueAddress) {
+        this.venueAddress = venueAddress;
     }
 
     public Set<Long> getTeamIds() {
