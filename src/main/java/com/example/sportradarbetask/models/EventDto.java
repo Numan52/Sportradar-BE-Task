@@ -1,11 +1,13 @@
 package com.example.sportradarbetask.models;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Set;
 
 public class EventDto {
     private Long eventId;
     private LocalDate date;
+    private LocalTime time;
     private String description;
     private int entranceFee;
     private String venueName;
@@ -14,9 +16,10 @@ public class EventDto {
 
     public EventDto(){};
 
-    public EventDto(Long eventId, LocalDate date, String description, int entranceFee, String venueName, String venueAddress, Set<Long> teamIds) {
+    public EventDto(Long eventId, LocalDate date, String description, int entranceFee, String venueName, String venueAddress, Set<Long> teamIds, LocalTime time) {
         this.eventId = eventId;
         this.date = date;
+        this.time = time;
         this.description = description;
         this.entranceFee = entranceFee;
         this.venueName = venueName;
@@ -78,5 +81,13 @@ public class EventDto {
 
     public void setTeamIds(Set<Long> teamIds) {
         this.teamIds = teamIds;
+    }
+
+    public LocalTime getTime() {
+        return time;
+    }
+
+    public void setTime(LocalTime time) {
+        this.time = time;
     }
 }

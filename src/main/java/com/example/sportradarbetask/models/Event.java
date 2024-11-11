@@ -3,6 +3,7 @@ package com.example.sportradarbetask.models;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 @Entity
@@ -12,6 +13,7 @@ public class Event {
     private Long eventId;
 
     private LocalDate date;
+    private LocalTime time;
     private String description;
     private int entranceFee;
 
@@ -30,17 +32,25 @@ public class Event {
     )
     private List<Team> teams;
 
+    @ManyToOne
+    @JoinColumn(name = "sport_name", referencedColumnName = "name")
+    private Sport sport;
+
 
     public Event() {
     }
 
-    public Event(Long eventId, LocalDate date, String description, int entranceFee, Venue venue, List<Team> teams) {
+    public Event(Long eventId, LocalDate date, String description, int entranceFee, Venue venue, List<Team> teams,
+                 LocalTime time, Sport sport) {
+
         this.eventId = eventId;
         this.date = date;
+        this.time = time;
         this.description = description;
         this.entranceFee = entranceFee;
         this.venue = venue;
         this.teams = teams;
+        this.sport = sport;
     }
 
     public Long getEventId() {
@@ -89,5 +99,21 @@ public class Event {
 
     public void setTeams(List<Team> team) {
         this.teams = team;
+    }
+
+    public LocalTime getTime() {
+        return time;
+    }
+
+    public void setTime(LocalTime time) {
+        this.time = time;
+    }
+
+    public Sport getSport() {
+        return sport;
+    }
+
+    public void setSport(Sport sport) {
+        this.sport = sport;
     }
 }

@@ -3,9 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <script src="index.js"></script>
     <title>Document</title>
 </head>
 <body>
     
+<header>
+    <h1>Sports Event Calendar</h1>
+</header>
+
+<nav>
+    <a href="#">Home</a>
+    <a href="#">Events</a>
+    <a href="#">Teams</a>
+    <a href="#">About</a>
+    <a href="#">Contact</a>
+</nav>
+
+<div class="container">
+    <h2>Upcoming Events</h2>
+    
+    <div class="events">
+
+    </div>
+    
+    <div class="event">
+        <h2>Football: Salzburg vs. Sturm</h2>
+        <p><strong>Date:</strong> Sat, 18.07.2019</p>
+        <p><strong>Time:</strong> 18:30</p>
+        <p><strong>Sport:</strong> Football</p>
+        <p><strong>Participants:</strong> Salzburg vs. Sturm</p>
+    </div>
+    
+    <div class="event">
+        <h2>Ice Hockey: KAC vs. Capitals</h2>
+        <p><strong>Date:</strong> Sun, 23.10.2019</p>
+        <p><strong>Time:</strong> 09:45</p>
+        <p><strong>Sport:</strong> Ice Hockey</p>
+        <p><strong>Participants:</strong> KAC vs. Capitals</p>
+    </div>
+
+    
+    <div class="add-event-form">
+        <h3>Add New Event</h3>
+        <form id="eventForm">
+            <label for="eventDate">Date:</label>
+            <input type="date" id="eventDate" name="eventDate" required>
+
+            <label for="eventTime">Time:</label>
+            <input type="time" id="eventTime" name="eventTime" required>
+
+            <label for="eventSport">Sport:</label>
+            <input type="text" id="eventSport" name="eventSport" placeholder="e.g., Football" required>
+
+            <label for="eventTeams">Teams/Participants:</label>
+            <input type="text" id="eventTeams" name="eventTeams" placeholder="e.g., Team A vs. Team B" required>
+
+            <button type="submit">Add Event</button>
+        </form>
+    </div>
+</div>
+
 </body>
-</html>l
+</html>

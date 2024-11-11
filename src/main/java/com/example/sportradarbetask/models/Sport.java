@@ -14,6 +14,9 @@ public class Sport {
     @OneToMany(mappedBy = "sport")
     private List<Team> teams;
 
+    @OneToMany(mappedBy = "sport")
+    private List<Event> events;
+
     public Sport() {
     }
 
@@ -35,5 +38,13 @@ public class Sport {
 
     public void setTeams(List<Team> teams) {
         this.teams = teams;
+    }
+
+    public List<Event> getEvents() {
+        return events;
+    }
+
+    public void setEvents(List<Event> events) {
+        this.events = events;
     }
 }

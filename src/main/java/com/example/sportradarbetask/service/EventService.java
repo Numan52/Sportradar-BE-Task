@@ -50,9 +50,10 @@ public class EventService {
     public EventDto toDto(Event event) {
         EventDto eventDto = new EventDto();
         eventDto.setEventId(event.getEventId());
-        eventDto.setDate(eventDto.getDate());
+        eventDto.setDate(event.getDate());
+        eventDto.setTime(event.getTime());
         eventDto.setDescription(event.getDescription());
-        eventDto.setEntranceFee(eventDto.getEntranceFee());
+        eventDto.setEntranceFee(event.getEntranceFee());
         eventDto.setVenueName(event.getVenue().getName());
         eventDto.setVenueAddress(event.getVenue().getAddress());
 
@@ -82,6 +83,7 @@ public class EventService {
 
         event.setEventId(eventDto.getEventId());
         event.setDate(eventDto.getDate());
+        event.setTime(eventDto.getTime());
         event.setDescription(eventDto.getDescription());
         event.setEntranceFee(eventDto.getEntranceFee());
         event.setVenue(venue);
