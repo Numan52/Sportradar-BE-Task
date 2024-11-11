@@ -13,10 +13,16 @@ public class EventDto {
     private String venueName;
     private String venueAddress;
     private Set<Long> teamIds;
+    private Set<String> teamNames;
+    private String sport;
+    private String venueCity;
+    private String venueCountry;
+    private int venueCapacity;
 
     public EventDto(){};
 
-    public EventDto(Long eventId, LocalDate date, String description, int entranceFee, String venueName, String venueAddress, Set<Long> teamIds, LocalTime time) {
+    public EventDto(Long eventId, LocalDate date, String description, int entranceFee, String venueName, String venueAddress, Set<Long> teamIds,
+                    LocalTime time, String sport) {
         this.eventId = eventId;
         this.date = date;
         this.time = time;
@@ -25,6 +31,7 @@ public class EventDto {
         this.venueName = venueName;
         this.venueAddress = venueAddress;
         this.teamIds = teamIds;
+        this.sport = sport;
     }
 
     public Long getEventId() {
@@ -89,5 +96,45 @@ public class EventDto {
 
     public void setTime(LocalTime time) {
         this.time = time;
+    }
+
+    public String getSport() {
+        return sport;
+    }
+
+    public void setSport(String sport) {
+        this.sport = sport;
+    }
+
+    public Set<String> getTeamNames() {
+        return teamNames;
+    }
+
+    public void setTeamNames(Set<String> teamNames) {
+        this.teamNames = teamNames;
+    }
+
+    public String getVenueCity() {
+        return venueCity;
+    }
+
+    public void setVenueCity(String venueCity) {
+        this.venueCity = venueCity;
+    }
+
+    public String getVenueCountry() {
+        return venueCountry;
+    }
+
+    public void setVenueCountry(String venueCountry) {
+        this.venueCountry = venueCountry;
+    }
+
+    public int getVenueCapacity() {
+        return venueCapacity;
+    }
+
+    public void setVenueCapacity(int venueCapacity) {
+        this.venueCapacity = venueCapacity;
     }
 }
