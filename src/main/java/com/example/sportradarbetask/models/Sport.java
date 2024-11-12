@@ -7,7 +7,6 @@ import java.util.List;
 @Entity
 public class Sport {
 
-
     @Id
     private String name;
 

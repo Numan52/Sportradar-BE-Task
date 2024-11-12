@@ -1,30 +1,31 @@
 package com.example.sportradarbetask.service;
 
 import com.example.sportradarbetask.daos.event.EventDao;
+import com.example.sportradarbetask.daos.sport.SportDao;
 import com.example.sportradarbetask.daos.team.TeamDao;
 import com.example.sportradarbetask.daos.venue.VenueDao;
 import com.example.sportradarbetask.exceptions.ResourceNotFoundException;
-import com.example.sportradarbetask.models.Event;
-import com.example.sportradarbetask.models.EventDto;
-import com.example.sportradarbetask.models.Team;
-import com.example.sportradarbetask.models.Venue;
+import com.example.sportradarbetask.models.*;
+import com.example.sportradarbetask.models.Dtos.EventDto;
+import com.example.sportradarbetask.models.Dtos.TeamDto;
+import com.example.sportradarbetask.models.Dtos.VenueDto;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class EventService {
     private final EventDao eventDao;
     private final VenueDao venueDao;
     private final TeamDao teamDao;
+    private final SportDao sportDao;
 
-    public EventService(EventDao eventDao, VenueDao venueDao, TeamDao teamDao) {
+    public EventService(EventDao eventDao, VenueDao venueDao, TeamDao teamDao, SportDao sportDao) {
         this.eventDao = eventDao;
         this.venueDao = venueDao;
         this.teamDao = teamDao;
+        this.sportDao = sportDao;
     }
 
     public Event getEventById(Long id) {
@@ -49,17 +50,30 @@ public class EventService {
 
     public EventDto toDto(Event event) {
         EventDto eventDto = new EventDto();
+
         eventDto.setEventId(event.getEventId());
         eventDto.setDate(event.getDate());
         eventDto.setTime(event.getTime());
         eventDto.setDescription(event.getDescription());
         eventDto.setEntranceFee(event.getEntranceFee());
-        eventDto.setVenueName(event.getVenue().getName());
-        eventDto.setVenueAddress(event.getVenue().getAddress());
 
-        Set<Long> teamIds = new HashSet<>();
-        event.getTeams().forEach((team) -> teamIds.add(team.getTeamId()));
-        eventDto.setTeamIds(teamIds);
+        VenueDto venueDto = new VenueDto(
+                event.getVenue().getName(),
+                event.getVenue().getAddress(),
+                event.getVenue().getCity(),
+                event.getVenue().getCountry(),
+                event.getVenue().getCapacity());
+        eventDto.setVenue(venueDto);
+
+        List<TeamDto> teamDtos = new ArrayList<>();
+        event.getTeams().forEach((team -> {
+            teamDtos.add(new TeamDto(team.getTeamId(), team.getName(), team.getCity(), team.getFoundingDate()));
+        }));
+        eventDto.setTeams(teamDtos);
+
+        eventDto.setSport(event.getSport().getName());
+
+
 
         return eventDto;
     }
@@ -67,28 +81,47 @@ public class EventService {
     public Event dtoToEvent(EventDto eventDto) {
         Event event = new Event();
 
-        Venue venue = venueDao.findByNameAndAddress(eventDto.getVenueName(), eventDto.getVenueAddress());
+        Venue venue = venueDao.findByNameAndAddress(eventDto.getVenue().getName(), eventDto.getVenue().getAddress());
         if (venue == null) {
-            throw new ResourceNotFoundException("Venue was not found with name: " + eventDto.getVenueName());
+             venue = new Venue(
+                    eventDto.getVenue().getName(),
+                    eventDto.getVenue().getAddress(),
+                    eventDto.getVenue().getCapacity(),
+                    eventDto.getVenue().getCity(),
+                    eventDto.getVenue().getCountry()
+            );
+             venueDao.save(venue);
+        }
+
+
+        Sport sport = sportDao.findByName(eventDto.getSport());
+        if (sport == null) {
+            sport = new Sport(eventDto.getSport());
+            sportDao.save(sport);
         }
 
         List<Team> teams = new ArrayList<>();
-        for (Long id : eventDto.getTeamIds()) {
-            Team team = teamDao.findById(id);
+
+        for (TeamDto teamDto : eventDto.getTeams()) {
+            Team team = teamDao.findByNameAndSport(teamDto.getTeamName(), sport.getName());
             if (team == null) {
-                throw new ResourceNotFoundException("Team not found with ID: " + id);
+                team = new Team(teamDto.getTeamName(), teamDto.getCity(), teamDto.getFoundingYear(), sport);
+                teamDao.save(team);
             }
             teams.add(team);
         }
+
 
         event.setEventId(eventDto.getEventId());
         event.setDate(eventDto.getDate());
         event.setTime(eventDto.getTime());
         event.setDescription(eventDto.getDescription());
         event.setEntranceFee(eventDto.getEntranceFee());
+        event.setSport(sport);
         event.setVenue(venue);
         event.setTeams(teams);
 
         return event;
+
     }
 }

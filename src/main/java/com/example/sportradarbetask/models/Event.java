@@ -33,7 +33,7 @@ public class Event {
     private List<Team> teams;
 
     @ManyToOne
-    @JoinColumn(name = "sport_name", referencedColumnName = "name")
+    @JoinColumn(name = "_sport", nullable = false)
     private Sport sport;
 
 
@@ -115,5 +115,19 @@ public class Event {
 
     public void setSport(Sport sport) {
         this.sport = sport;
+    }
+
+    @Override
+    public String toString() {
+        return "Event{" +
+                "eventId=" + eventId +
+                ", date=" + date +
+                ", time=" + time +
+                ", description='" + description + '\'' +
+                ", entranceFee=" + entranceFee +
+                ", venue=" + venue +
+                ", teams=" + teams +
+                ", sport=" + sport +
+                '}';
     }
 }

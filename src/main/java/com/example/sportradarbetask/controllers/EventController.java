@@ -1,13 +1,10 @@
 package com.example.sportradarbetask.controllers;
 
 import com.example.sportradarbetask.models.Event;
-import com.example.sportradarbetask.models.EventDto;
+import com.example.sportradarbetask.models.Dtos.EventDto;
 import com.example.sportradarbetask.service.EventService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,9 +30,10 @@ public class EventController {
         return ResponseEntity.ok(eventDtos);
     }
 
-    @PutMapping("api/events/addEvent")
+    @PostMapping("api/events/addEvent")
     public ResponseEntity<?> addEvent(@RequestBody EventDto eventDto) {
         Event event = eventService.dtoToEvent(eventDto);
+        System.out.println(event.toString());
         eventService.addEvent(event);
         return ResponseEntity.ok("Event was successfully added");
     }

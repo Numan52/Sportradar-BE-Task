@@ -78,3 +78,12 @@ nav a:hover {
 .add-event-form button:hover {
     background-color: #45a049;
 }
+
+.add-event-hr {
+    margin-bottom: 15px;
+    margin-left: 0;
+    margin-right: 0;
+    width: 90%;
+    padding: 0 8px;
+    
+}

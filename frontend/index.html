@@ -28,37 +28,77 @@
 
     </div>
     
-    <div class="event">
-        <h2>Football: Salzburg vs. Sturm</h2>
-        <p><strong>Date:</strong> Sat, 18.07.2019</p>
-        <p><strong>Time:</strong> 18:30</p>
-        <p><strong>Sport:</strong> Football</p>
-        <p><strong>Participants:</strong> Salzburg vs. Sturm</p>
-    </div>
-    
-    <div class="event">
-        <h2>Ice Hockey: KAC vs. Capitals</h2>
-        <p><strong>Date:</strong> Sun, 23.10.2019</p>
-        <p><strong>Time:</strong> 09:45</p>
-        <p><strong>Sport:</strong> Ice Hockey</p>
-        <p><strong>Participants:</strong> KAC vs. Capitals</p>
-    </div>
-
-    
     <div class="add-event-form">
         <h3>Add New Event</h3>
+        <hr>
         <form id="eventForm">
-            <label for="eventDate">Date:</label>
-            <input type="date" id="eventDate" name="eventDate" required>
+            <div class="EventInfo">
+                <h4>Event Information</h4>
 
-            <label for="eventTime">Time:</label>
-            <input type="time" id="eventTime" name="eventTime" required>
+                <label for="eventDescription">Description:*</label>
+                <input type="text" id="eventDescription" name="eventDescription" required>
 
-            <label for="eventSport">Sport:</label>
-            <input type="text" id="eventSport" name="eventSport" placeholder="e.g., Football" required>
+                <label for="eventDate">Date:*</label>
+                <input type="date" id="eventDate" name="eventDate" required>
+    
+                <label for="eventTime">Time:*</label>
+                <input type="time" id="eventTime" name="eventTime" required>
+    
+                <label for="eventSport">Sport:*</label>
+                <input type="text" id="eventSport" name="eventSport" placeholder="e.g., Football" required>
+    
+                <label for="entranceFee">Entrance Fee (Euro): *</label>
+                <input type="text" id="entranceFee" name="entranceFee" placeholder="e.g., 40" required>
+            </div>
 
-            <label for="eventTeams">Teams/Participants:</label>
-            <input type="text" id="eventTeams" name="eventTeams" placeholder="e.g., Team A vs. Team B" required>
+            <div class="teamInfo">
+                <h4>Team Information</h4>
+
+                <label for="teamA">Team A*</label>
+                <input type="text" id="teamA" name="teamA" placeholder="e.g., Team A" required>
+
+                <label for="teamCityA">City:*</label>
+                <input type="text" id="teamCityA" name="teamCityA" placeholder="e.g., Madrid" required>
+
+                <label for="foundingDateA">Founding Date: (Optional)</label>
+                <input type="text" id="foundingDateA" name="foundingDateA" placeholder="e.g., 1922">
+
+                <hr class="add-event-hr">
+
+                <label for="teamB">Team B*</label>
+                <input type="text" id="teamB" name="teamB" placeholder="e.g., Team B" required>
+    
+                <label for="teamCityB">City:*</label>
+                <input type="text" id="teamCityB" name="teamCityB" placeholder="e.g., London" required>
+
+                <label for="foundingDateB">Founding Date: (Optional)</label>
+                <input type="text" id="foundingDateB" name="foundingDateB" placeholder="e.g., 1924" >
+
+            </div>
+
+            <div class="venueInfo">
+                <h4>Venue Information</h4>
+
+                <label for="venueName">Name:*</label>
+                <input type="text" id="venueName" name="venueName" placeholder="e.g. Estadio Santiago Bernabéu" required>
+                
+                <label for="venueCity">City:*</label>
+                <input type="text" id="venueCity" name="venueCity" placeholder="e.g. Estadio Santiago Bernabéu" required>
+                
+                <label for="venueCountry">Country:*</label>
+                <input type="text" id="venueCountry" name="venueCountry" placeholder="e.g. Madrid" required>
+
+                <label for="venueAddress">Address:*</label>
+                <input type="text" id="venueAddress" name="venueAddress" placeholder="e.g. Av. de Concha Espina, 1, Chamartín, 28036" required >
+
+                <label for="venueCapacity">Capacity:</label>
+                <input type="text" id="venueCapacity" name="venueCapacity" placeholder="e.g. 30000" required>
+            </div>
+
+            
+
+
+
 
             <button type="submit">Add Event</button>
         </form>
