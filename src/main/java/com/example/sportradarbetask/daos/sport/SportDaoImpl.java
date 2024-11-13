@@ -7,6 +7,8 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
 
+import java.util.List;
+
 public class SportDaoImpl implements SportDao {
 
     @PersistenceContext
@@ -21,5 +23,18 @@ public class SportDaoImpl implements SportDao {
     @Override
     public Sport findByName(String name) {
         return entityManager.find(Sport.class, name);
+    }
+
+    @Override
+    public List<Sport> findSportsCategories() {
+        try {
+            return entityManager.createQuery(
+                    "SELECT DISTINCT s.name FROM Sport s", Sport.class
+            ).getResultList();
+        }catch (Exception e) {
+            System.out.println("Couldn't find sports categories");
+            return null;
+        }
+
     }
 }

@@ -1,13 +1,14 @@
 addEventListener("load", async function(){
     setupSubmitEventHandler()
     await displayEvents()
-    
+    await populateSportDropdown()
 })
 
 async function displayEvents() {
     const eventsData = await fetchEventsData()
     
     const eventsDiv = document.getElementsByClassName("events").item(0)
+    eventsDiv.innerHTML = ""
     
     eventsData.forEach(event => {
         createEventDiv(event, eventsDiv)
@@ -147,11 +148,59 @@ async function sendEventDto(event) {
         
         if (response.ok) {
             console.log("Event successfully added!");
+            await displayEvents()
         } else {
             console.error("Failed to add event.");
+            const errorDiv = document.getElementsByClassName("add-event-error-message").item(0)
+            errorDiv.textContent = "An error occurred while adding a new event. Please try again."
+            
+            window.scrollTo({
+                top: document.body.scrollHeight,
+                behavior: "smooth"
+            });
         }
     } catch (error) {
         console.error("Error:", error);
+    }
+}
+
+
+async function filterEvents() {
+    const sport = document.getElementById("filterSport").value;
+    const date = document.getElementById("filterDate").value;
+
+    const queryParams = new URLSearchParams();
+    if (sport) queryParams.append("sport", sport);
+    if (date) queryParams.append("date", date);
+
+    const response = await fetch(`http://localhost:8080/api/events/filter?${queryParams.toString()}`);
+    if (response.ok) {
+        const eventsData = await response.json();
+        const eventsDiv = document.getElementsByClassName("events").item(0);
+        eventsDiv.innerHTML = "";
+        eventsData.forEach(event => createEventDiv(event, eventsDiv));
+    }
+
+
+}
+
+
+async function populateSportDropdown() {
+    try {
+        const response = await fetch("http://localhost:8080/api/sports"); // Adjust the endpoint to your API
+        if (response.ok) {
+            const sports = await response.json();
+            const sportSelect = document.getElementById("filterSport");
+            
+            sports.forEach(sport => {
+                const option = document.createElement("option");
+                option.value = sport.name;
+                option.textContent = sport.name;
+                sportSelect.appendChild(option);
+            });
+        }
+    } catch (error) {
+        console.error("Error fetching sports data:", error);
     }
 }
 

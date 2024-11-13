@@ -87,3 +87,25 @@ nav a:hover {
     padding: 0 8px;
     
 }
+
+
+.filter-form > h3 {
+    margin: 10px 0 5px 0;
+}
+
+.filter-form-options {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+
+    button {
+        margin-left: 5px;
+
+    }
+}
+
+
+.add-event-error-message {
+    font-size: 22px;
+    color: red;
+}

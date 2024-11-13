@@ -11,6 +11,7 @@ import com.example.sportradarbetask.models.Dtos.TeamDto;
 import com.example.sportradarbetask.models.Dtos.VenueDto;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,6 +47,18 @@ public class EventService {
 
     public void deleteEvent(Long id) {
         eventDao.delete(id);
+    }
+
+    public List<Event> findBySportAndDate(String sport, LocalDate date) {
+        return eventDao.findBySportAndDate(sport, date);
+    }
+
+    public List<Event> findBySport(String sport) {
+        return eventDao.findBySport(sport);
+    }
+
+    public List<Event> findByDate(LocalDate date) {
+        return eventDao.findByDate(date);
     }
 
     public EventDto toDto(Event event) {
@@ -96,7 +109,7 @@ public class EventService {
 
         Sport sport = sportDao.findByName(eventDto.getSport());
         if (sport == null) {
-            sport = new Sport(eventDto.getSport());
+            sport = new Sport(eventDto.getSport().toLowerCase());
             sportDao.save(sport);
         }
 
@@ -105,7 +118,7 @@ public class EventService {
         for (TeamDto teamDto : eventDto.getTeams()) {
             Team team = teamDao.findByNameAndSport(teamDto.getTeamName(), sport.getName());
             if (team == null) {
-                team = new Team(teamDto.getTeamName(), teamDto.getCity(), teamDto.getFoundingYear(), sport);
+                team = new Team(teamDto.getTeamName().toLowerCase(), teamDto.getCity().toLowerCase(), teamDto.getFoundingYear(), sport);
                 teamDao.save(team);
             }
             teams.add(team);
