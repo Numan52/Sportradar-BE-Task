@@ -32,6 +32,11 @@ nav a:hover {
     overflow: hidden;
     padding: 20px;
 }
+
+.events {
+    margin-top: 30px;
+}
+
 .event {
     background: white;
     margin: 10px 0;
@@ -108,4 +113,10 @@ nav a:hover {
 .add-event-error-message {
     font-size: 22px;
     color: red;
+}
+
+
+.no-events-message {
+    font-size: 28px;
+    margin-bottom: 30px;
 }

@@ -1,39 +1,50 @@
-addEventListener("load", async function(){
+addEventListener("DOMContentLoaded", async function(){
     setupSubmitEventHandler()
     await displayEvents()
     await populateSportDropdown()
 })
 
 async function displayEvents() {
-    const eventsData = await fetchEventsData()
     
     const eventsDiv = document.getElementsByClassName("events").item(0)
+    const noEventsMessage = document.getElementsByClassName("no-events-message").item(0);
+
     eventsDiv.innerHTML = ""
-    
-    eventsData.forEach(event => {
-        createEventDiv(event, eventsDiv)
-    });
-    
+
+    try {
+        const eventsData = await fetchEventsData()
+
+        if (eventsData.length === 0) {
+            noEventsMessage.style.display = "block"
+        } else {
+            noEventsMessage.style.display = "none"
+            eventsData.forEach(event => {
+                createEventDiv(event, eventsDiv)
+            });
+        }
+        
+    } catch (error) {
+        console.error("Error in displayEvents:", error);
+
+        noEventsMessage.style.display = "block";
+    }
     
 }
 
 
 async function fetchEventsData() {
-    try {
-        const response = await fetch("http://localhost:8080/api/events/getEvents", {
-            method: "GET",
-            headers: { 
-              "Content-Type": "application/json",
-            }
-        })
-        if(response.ok) {
-            const data = await response.json()
-            console.log(data)
-            return data
+    const response = await fetch("http://localhost:8080/api/events/getEvents", {
+        method: "GET",
+        headers: { 
+            "Content-Type": "application/json",
         }
-    } catch (error) {
-        console.error("Error while fetching event data: ", error)
+    })
+    if(response.ok) {
+        const data = await response.json()
+        console.log(data)
+        return data
     }
+
     
 }
 
@@ -136,6 +147,11 @@ function setupSubmitEventHandler() {
 }
 
 
+function displayNoEventsFoundMsg() {
+
+}
+
+
 async function sendEventDto(event) {
     try {
         const response = await fetch("http://localhost:8080/api/events/addEvent", {
@@ -166,6 +182,9 @@ async function sendEventDto(event) {
 
 
 async function filterEvents() {
+    const eventsDiv = document.getElementsByClassName("events").item(0);
+    const noEventsMessage = document.getElementsByClassName("no-events-message").item(0);
+
     const sport = document.getElementById("filterSport").value;
     const date = document.getElementById("filterDate").value;
 
@@ -176,9 +195,15 @@ async function filterEvents() {
     const response = await fetch(`http://localhost:8080/api/events/filter?${queryParams.toString()}`);
     if (response.ok) {
         const eventsData = await response.json();
-        const eventsDiv = document.getElementsByClassName("events").item(0);
         eventsDiv.innerHTML = "";
-        eventsData.forEach(event => createEventDiv(event, eventsDiv));
+        
+        if(eventsData.length === 0) {
+            noEventsMessage.style.display = "block"
+        } else {
+            noEventsMessage.style.display = "none"
+            eventsData.forEach(event => createEventDiv(event, eventsDiv));
+        }
+        
     }
 
 
