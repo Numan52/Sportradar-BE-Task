@@ -61,6 +61,7 @@ public class EventService {
         return eventDao.findByDate(date);
     }
 
+    // DTOs are sent to and from clients
     public EventDto toDto(Event event) {
         EventDto eventDto = new EventDto();
 

@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
-@IdClass(VenueId.class)
+@IdClass(VenueId.class) // defines composite primary key
 public class Venue {
     @Id
     private String name;

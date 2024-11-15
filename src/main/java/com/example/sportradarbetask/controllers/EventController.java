@@ -24,11 +24,12 @@ public class EventController {
         List<Event> events = eventService.getAllEvents();
         List<EventDto> eventDtos = new ArrayList<>();
 
-
         for (Event event : events) {
             eventDtos.add(eventService.toDto(event));
         }
-        // to Dto
+
+        System.out.println("eventdtos: " + eventDtos);
+
         return ResponseEntity.ok(eventDtos);
     }
 
