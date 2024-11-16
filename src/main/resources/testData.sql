@@ -23,8 +23,6 @@ INSERT INTO event (event_id, date, time, description, entrance_fee, _sport, _ven
     (3, '2024-12-10', '15:00:00', 'MLB Match: New York Yankees vs Boston Red Sox', 90, 'Baseball', 'Yankee Stadium', '1 E 161st St'),
     (4, '2024-12-15', '19:00:00', 'NBA Match: Chicago Bulls vs Miami Heat', 110, 'Basketball', 'United Center', '1901 W Madison St');
 
-INSERT INTO event_team (_event_id, _team_id) VALUES
-    (1, 1), (1, 2), (2, 2), (2, 3);
 
 INSERT INTO event_team (_event_id, _team_id) VALUES
      (1, 1), -- Manchester United in Premier League Match
