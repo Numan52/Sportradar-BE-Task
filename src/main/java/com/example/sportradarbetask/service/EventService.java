@@ -81,7 +81,7 @@ public class EventService {
 
         List<TeamDto> teamDtos = new ArrayList<>();
         event.getTeams().forEach((team -> {
-            teamDtos.add(new TeamDto(team.getTeamId(), team.getName(), team.getCity(), team.getFoundingDate()));
+            teamDtos.add(new TeamDto(team.getTeamId(), team.getName()));
         }));
         eventDto.setTeams(teamDtos);
 

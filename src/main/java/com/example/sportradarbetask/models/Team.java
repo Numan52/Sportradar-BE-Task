@@ -13,7 +13,7 @@ public class Team {
 
     private String name;
     private String city;
-    private int foundingDate;
+    private Integer foundingDate;
 
     @ManyToOne
     @JoinColumn(name = "_sport", nullable = false)
@@ -25,16 +25,14 @@ public class Team {
     public Team() {
     }
 
-    public Team(Long teamId, String name, String city, int foundingDate, Sport sport) {
+    public Team(Long teamId, String name) {
         this.teamId = teamId;
         this.name = name;
-        this.city = city;
-        this.foundingDate = foundingDate;
-        this.sport = sport;
+
 
     }
 
-    public Team(String name, String city, int foundingDate, Sport sport) {
+    public Team(String name, String city, Integer foundingDate, Sport sport) {
         this.name = name;
         this.city = city;
         this.foundingDate = foundingDate;

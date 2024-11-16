@@ -1,20 +1,28 @@
 package com.example.sportradarbetask.models.Dtos;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
+
 public class TeamDto {
     private Long teamId;
     private String teamName;
     private String city;
-    private int foundingYear;
+    private Integer foundingYear;
 
 
     public TeamDto() {
     }
 
-    public TeamDto(Long teamId, String teamName, String city, int foundingYear) {
+    public TeamDto(Long teamId, String teamName, String city, Integer foundingYear) {
         this.teamId = teamId;
         this.teamName = teamName;
         this.city = city;
         this.foundingYear = foundingYear;
+    }
+
+    public TeamDto(Long teamId, String teamName) {
+        this.teamId = teamId;
+        this.teamName = teamName;
     }
 
     public Long getTeamId() {
@@ -41,7 +49,7 @@ public class TeamDto {
         this.city = city;
     }
 
-    public int getFoundingYear() {
+    public Integer getFoundingYear() {
         return foundingYear;
     }
 
