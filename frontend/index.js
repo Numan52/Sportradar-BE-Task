@@ -11,6 +11,8 @@ addEventListener("DOMContentLoaded", async function(){
     await populateDropdown("http://localhost:8080/api/sports", [filterSportSelect, addEventSportSelect])
     await populateDropdown("http://localhost:8080/api/utility/cities", [teamACitySelect, teamBCitySelect, venueCitySelect])
     await populateDropdown("http://localhost:8080/api/utility/countries", [venueCountrySelect])
+
+    addOtherSelectedListener()
 })
 
 
@@ -106,22 +108,37 @@ function setupSubmitEventHandler() {
         const eventDescription = document.getElementById("eventDescription").value;
         const date = document.getElementById("eventDate").value;
         const time = document.getElementById("eventTime").value;
-        const sport = document.getElementById("eventSport").value;
         const entranceFee = document.getElementById("entranceFee").value;
+
+        const sportSelection = document.getElementById("select-event-sport").value;
+        const sportInput = document.getElementById("event-sport-input").value;
+
         const teamA = document.getElementById("teamA").value;
-        const teamCityA = document.getElementById("teamCityA").value;
+        const teamACitySelection = document.getElementById("teamA-city-select").value;
+        const teamACityInput = document.getElementById("teamA-city-input").value;
         const foundingDateA = document.getElementById("foundingDateA").value;
+
         const teamB = document.getElementById("teamB").value;
-        const teamCityB = document.getElementById("teamCityB").value;
+        const teamBCitySelection = document.getElementById("teamB-city-select").value;
+        const teamBCityInput = document.getElementById("teamB-city-input").value;
         const foundingDateB = document.getElementById("foundingDateB").value;
+
         const venueName = document.getElementById("venueName").value;
-        const venueCity = document.getElementById("venueCity").value;
-        const venueCountry = document.getElementById("venueCountry").value;
+        const VenueCitySelection = document.getElementById("venue-city-select").value;
+        const venueCityInput = document.getElementById("venue-city-input").value;
+        const venueCountrySelection = document.getElementById("venue-country-select").value;
+        const venueCountryInput = document.getElementById("venue-country-input").value;
         const venueAddress = document.getElementById("venueAddress").value;
         const venueCapacity = document.getElementById("venueCapacity").value;
         
-        if (eventDescription && date && time && sport && entranceFee && sport && teamA && teamCityA
-            && teamB && teamCityB ){  
+        const sport = sportSelection === "Other" ? sportInput : sportSelection
+        const teamACity = teamACitySelection === "Other" ? teamACityInput : teamACitySelection
+        const teamBCity = teamBCitySelection === "Other" ? teamBCityInput : teamBCitySelection
+        const venueCity = VenueCitySelection === "Other" ? venueCityInput : VenueCitySelection
+        const venueCountry = venueCountrySelection === "Other" ? venueCountryInput : venueCountrySelection
+
+        if (eventDescription && date && time && sport && entranceFee && sport && teamA && teamACity
+            && teamB && teamBCity && venueCity && venueCountry){  
             const eventDto = {
                 date,
                 time,
@@ -138,12 +155,12 @@ function setupSubmitEventHandler() {
                 teams: [
                     {
                         teamName: teamA,
-                        city: teamCityA,
+                        city: teamACity,
                         foundingYear: foundingDateA
                     },
                     {
                         teamName: teamB,
-                        city: teamCityB,
+                        city: teamBCity,
                         foundingYear: foundingDateB
                     }
                 ]
@@ -152,6 +169,9 @@ function setupSubmitEventHandler() {
             await sendEventDto(eventDto)
             
             document.getElementById("eventForm").reset();
+        } else {
+            const errorDiv = document.getElementsByClassName("add-event-error-message").item(0)
+            errorDiv.textContent = "Please fill out every mandatory field. (marked with *)"
         }
     });
 }
@@ -233,6 +253,10 @@ async function populateDropdown(apiUrl, elementsArray) {
                     option.textContent = dataElement;
                     selectElement.appendChild(option);
                 });
+                const otherOption = document.createElement("option")
+                otherOption.value = "Other";
+                otherOption.textContent = "Other";
+                selectElement.appendChild(otherOption)
             })
             
         } else {
@@ -243,6 +267,24 @@ async function populateDropdown(apiUrl, elementsArray) {
     }
 }
 
+
+function addOtherSelectedListener() { 
+    const selectElements = document.querySelectorAll("select[data-other-input]")
+
+    selectElements.forEach(selectElement => {
+        selectElement.addEventListener("change", function() {
+            const inputElementId = this.getAttribute("data-other-input")
+            const inputElement = document.getElementById(inputElementId)
+
+            if (selectElement.value == "Other") {
+                inputElement.style.display = "block"
+            } else {
+                inputElement.style.display = "none"
+            }
+
+        })
+    })
+}
 
 
 

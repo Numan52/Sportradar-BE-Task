@@ -110,7 +110,7 @@ public class EventService {
 
         Sport sport = sportDao.findByName(eventDto.getSport());
         if (sport == null) {
-            sport = new Sport(eventDto.getSport().toLowerCase());
+            sport = new Sport(eventDto.getSport());
             sportDao.save(sport);
         }
 
@@ -119,7 +119,7 @@ public class EventService {
         for (TeamDto teamDto : eventDto.getTeams()) {
             Team team = teamDao.findByNameAndSport(teamDto.getTeamName(), sport.getName());
             if (team == null) {
-                team = new Team(teamDto.getTeamName().toLowerCase(), teamDto.getCity().toLowerCase(), teamDto.getFoundingYear(), sport);
+                team = new Team(teamDto.getTeamName(), teamDto.getCity(), teamDto.getFoundingYear(), sport);
                 teamDao.save(team);
             }
             teams.add(team);

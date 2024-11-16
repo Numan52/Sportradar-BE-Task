@@ -66,9 +66,11 @@
                 <input type="time" id="eventTime" name="eventTime" required>
     
                 <label for="select-event-sport">Sport:*</label>
-                <select id="select-event-sport">
+                <select id="select-event-sport" data-other-input="event-sport-input">
+                    <option value="">Select Sport</option>
                     <!-- Sports options will be added here dynamically -->
                 </select>
+                <input type="text" id="event-sport-input" name="event-sport-input" placeholder="Or enter sport manually" style="display: none;" >
     
                 <label for="entranceFee">Entrance Fee (Euro): *</label>
                 <input type="text" id="entranceFee" name="entranceFee" placeholder="e.g., 40" required>
@@ -81,10 +83,11 @@
                 <input type="text" id="teamA" name="teamA" placeholder="e.g., Team A" required>
 
                 <label for="teamA-city-select">City:*</label>
-                <select name="teamA-city-select" id="teamA-city-select">
-                        
+                <select name="teamA-city-select" id="teamA-city-select" data-other-input="teamA-city-input" >
+                    <option value="">Select City</option>
+
                 </select>
-                <input type="text" id="teamA-city-input" name="teamA-city-input" placeholder="Or enter city manually" style="display: none;" required>
+                <input type="text" id="teamA-city-input" name="teamA-city-input" placeholder="Or enter city manually" style="display: none;">
                 
 
                 <label for="foundingDateA">Founding Date: (Optional)</label>
@@ -96,10 +99,10 @@
                 <input type="text" id="teamB" name="teamB" placeholder="e.g., Team B" required>
 
                 <label for="teamB-city-select">Team B*</label>
-                <select name="teamB-city-select" id="teamB-city-select">
-
+                <select name="teamB-city-select" id="teamB-city-select" data-other-input="teamB-city-input">
+                    <option value="">Select City</option>
                 </select>
-                <input type="text" id="teamB-city-input" name="teamB-city-input" placeholder="Or enter city manually" style="display: none;" required>
+                <input type="text" id="teamB-city-input" name="teamB-city-input" placeholder="Or enter city manually" style="display: none;">
 
                 <label for="foundingDateB">Founding Date: (Optional)</label>
                 <input type="text" id="foundingDateB" name="foundingDateB" placeholder="e.g., 1924" >
@@ -113,22 +116,22 @@
                 <input type="text" id="venueName" name="venueName" placeholder="e.g. Estadio Santiago Bernabéu" required>
                 
                 <label for="venue-city-select">City:*</label>
-                <select name="venue-city-select" id="venue-city-select">
-
+                <select name="venue-city-select" id="venue-city-select" data-other-input="venue-city-input">
+                    <option value="">Select City</option>
                 </select>
-                <input type="text" id="venue-city-input" name="venue-city-input" placeholder="Or enter city manually" style="display: none;" required>
+                <input type="text" id="venue-city-input" name="venue-city-input" placeholder="Or enter city manually" style="display: none;">
                 
                 <label for="venue-country-select">Country:*</label>
-                <select id="venue-country-select" name="venue-country-select">
-                    <!-- Sports options will be added here dynamically -->
+                <select id="venue-country-select" name="venue-country-select" data-other-input="venue-country-input">
+                    <option value="">Select Country</option>
                 </select>
-                <input type="text" id="venue-country-input" name="venue-country-input" placeholder="Or enter country manually" style="display: none;" required>
+                <input type="text" id="venue-country-input" name="venue-country-input" placeholder="Or enter country manually" style="display: none;">
 
                 <label for="venueAddress">Address:*</label>
                 <input type="text" id="venueAddress" name="venueAddress" placeholder="e.g. Av. de Concha Espina, 1, Chamartín, 28036" required >
 
                 <label for="venueCapacity">Capacity:*</label>
-                <input type="number" id="venueCapacity" name="venueCapacity" placeholder="e.g. 30000" min="1" value="5000" required>
+                <input type="number" id="venueCapacity" name="venueCapacity" placeholder="e.g. 30000" min="1" required>
             </div>
 
             <button type="submit">Add Event</button>
