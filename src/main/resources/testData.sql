@@ -25,11 +25,17 @@ INSERT INTO event (event_id, date, time, description, entrance_fee, _sport, _ven
 
 
 INSERT INTO event_team (_event_id, _team_id) VALUES
-     (1, 1), -- Manchester United in Premier League Match
-     (1, 8), -- Arsenal in Premier League Match
-     (2, 2), -- Los Angeles Lakers in NBA Match
-     (2, 3), -- Golden State Warriors in NBA Match
-     (3, 4), -- New York Yankees in MLB Match
-     (3, 7), -- Boston Red Sox in MLB Match
-     (4, 5), -- Chicago Bulls in NBA Match
-     (4, 6); -- Miami Heat in NBA Match
+     (1, 1),
+     (1, 8),
+     (2, 2),
+     (2, 3),
+     (3, 4),
+     (3, 7),
+     (4, 5),
+     (4, 6);
+
+SELECT pg_get_serial_sequence('team', 'team_id');
+ALTER SEQUENCE team_team_id_seq RESTART WITH 9; -- needed, because database's primary key auto-increment behavior isn't correctly respecting the existing data
+ALTER SEQUENCE event_event_id_seq RESTART WITH 5;
+SELECT nextval('team_team_id_seq');
+
