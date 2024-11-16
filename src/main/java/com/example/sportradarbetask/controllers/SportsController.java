@@ -23,13 +23,13 @@ public class SportsController {
 
     @GetMapping("/api/sports")
     public ResponseEntity<?> getSports() {
-        List<Sport> sportsCategories = sportService.getAllSportsCategories();
-        List<SportDto> sportsCategoriesDtos = new ArrayList<>();
+        List<Sport> sports = sportService.getAllSportsCategories();
+        List<String> sportsStrings = new ArrayList<>();
 
-        for (Sport sport : sportsCategories) {
-            sportsCategoriesDtos.add(sportService.toDto(sport));
+        for (Sport sport : sports) {
+            sportsStrings.add(sport.getName());
         }
         // to Dto
-        return ResponseEntity.ok(sportsCategoriesDtos);
+        return ResponseEntity.ok(sportsStrings);
     }
 }

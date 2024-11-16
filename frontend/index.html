@@ -30,6 +30,7 @@
             <label for="filterSport">Sport:</label>
             <select id="filterSport">
                 <option value="">Select Sport</option>
+        
             <!-- Sports options will be added here dynamically -->
             </select>
 
@@ -64,8 +65,10 @@
                 <label for="eventTime">Time:*</label>
                 <input type="time" id="eventTime" name="eventTime" required>
     
-                <label for="eventSport">Sport:*</label>
-                <input type="text" id="eventSport" name="eventSport" placeholder="e.g., Football" required>
+                <label for="select-event-sport">Sport:*</label>
+                <select id="select-event-sport">
+                    <!-- Sports options will be added here dynamically -->
+                </select>
     
                 <label for="entranceFee">Entrance Fee (Euro): *</label>
                 <input type="text" id="entranceFee" name="entranceFee" placeholder="e.g., 40" required>
@@ -73,23 +76,30 @@
 
             <div class="teamInfo">
                 <h4>Team Information</h4>
-
+                
                 <label for="teamA">Team A*</label>
                 <input type="text" id="teamA" name="teamA" placeholder="e.g., Team A" required>
 
-                <label for="teamCityA">City:*</label>
-                <input type="text" id="teamCityA" name="teamCityA" placeholder="e.g., Madrid" required>
+                <label for="teamA-city-select">City:*</label>
+                <select name="teamA-city-select" id="teamA-city-select">
+                        
+                </select>
+                <input type="text" id="teamA-city-input" name="teamA-city-input" placeholder="Or enter city manually" style="display: none;" required>
+                
 
                 <label for="foundingDateA">Founding Date: (Optional)</label>
                 <input type="text" id="foundingDateA" name="foundingDateA" placeholder="e.g., 1922">
 
                 <hr class="add-event-hr">
-
+                
                 <label for="teamB">Team B*</label>
                 <input type="text" id="teamB" name="teamB" placeholder="e.g., Team B" required>
-    
-                <label for="teamCityB">City:*</label>
-                <input type="text" id="teamCityB" name="teamCityB" placeholder="e.g., London" required>
+
+                <label for="teamB-city-select">Team B*</label>
+                <select name="teamB-city-select" id="teamB-city-select">
+
+                </select>
+                <input type="text" id="teamB-city-input" name="teamB-city-input" placeholder="Or enter city manually" style="display: none;" required>
 
                 <label for="foundingDateB">Founding Date: (Optional)</label>
                 <input type="text" id="foundingDateB" name="foundingDateB" placeholder="e.g., 1924" >
@@ -102,17 +112,23 @@
                 <label for="venueName">Name:*</label>
                 <input type="text" id="venueName" name="venueName" placeholder="e.g. Estadio Santiago Bernabéu" required>
                 
-                <label for="venueCity">City:*</label>
-                <input type="text" id="venueCity" name="venueCity" placeholder="e.g. Madrid" required>
+                <label for="venue-city-select">City:*</label>
+                <select name="venue-city-select" id="venue-city-select">
+
+                </select>
+                <input type="text" id="venue-city-input" name="venue-city-input" placeholder="Or enter city manually" style="display: none;" required>
                 
-                <label for="venueCountry">Country:*</label>
-                <input type="text" id="venueCountry" name="venueCountry" placeholder="e.g. Spain" required>
+                <label for="venue-country-select">Country:*</label>
+                <select id="venue-country-select" name="venue-country-select">
+                    <!-- Sports options will be added here dynamically -->
+                </select>
+                <input type="text" id="venue-country-input" name="venue-country-input" placeholder="Or enter country manually" style="display: none;" required>
 
                 <label for="venueAddress">Address:*</label>
                 <input type="text" id="venueAddress" name="venueAddress" placeholder="e.g. Av. de Concha Espina, 1, Chamartín, 28036" required >
 
                 <label for="venueCapacity">Capacity:*</label>
-                <input type="text" id="venueCapacity" name="venueCapacity" placeholder="e.g. 30000" required>
+                <input type="number" id="venueCapacity" name="venueCapacity" placeholder="e.g. 30000" min="1" value="5000" required>
             </div>
 
             <button type="submit">Add Event</button>

@@ -29,7 +29,7 @@ public class SportDaoImpl implements SportDao {
     public List<Sport> findSportsCategories() {
         try {
             return entityManager.createQuery(
-                    "SELECT DISTINCT s.name FROM Sport s", Sport.class
+                    "SELECT DISTINCT s.name FROM Sport s ORDER BY s.name ASC ", Sport.class
             ).getResultList();
         }catch (Exception e) {
             System.out.println("Couldn't find sports categories");

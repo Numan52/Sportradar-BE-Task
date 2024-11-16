@@ -1,8 +1,18 @@
 addEventListener("DOMContentLoaded", async function(){
+    const filterSportSelect = document.getElementById("filterSport");
+    const addEventSportSelect = document.getElementById("select-event-sport");
+    const teamACitySelect = document.getElementById("teamA-city-select");
+    const teamBCitySelect = document.getElementById("teamB-city-select");
+    const venueCitySelect = document.getElementById("venue-city-select");
+    const venueCountrySelect = document.getElementById("venue-country-select");
+
     setupSubmitEventHandler()
     await displayEvents()
-    await populateSportDropdown()
+    await populateDropdown("http://localhost:8080/api/sports", [filterSportSelect, addEventSportSelect])
+    await populateDropdown("http://localhost:8080/api/utility/cities", [teamACitySelect, teamBCitySelect, venueCitySelect])
+    await populateDropdown("http://localhost:8080/api/utility/countries", [venueCountrySelect])
 })
+
 
 async function displayEvents() {
     
@@ -210,24 +220,31 @@ async function filterEvents() {
 }
 
 
-async function populateSportDropdown() {
+async function populateDropdown(apiUrl, elementsArray) {
     try {
-        const response = await fetch("http://localhost:8080/api/sports"); // Adjust the endpoint to your API
+        const response = await fetch(apiUrl); 
         if (response.ok) {
-            const sports = await response.json();
-            const sportSelect = document.getElementById("filterSport");
+            const data = await response.json();
             
-            sports.forEach(sport => {
-                const option = document.createElement("option");
-                option.value = sport.name;
-                option.textContent = sport.name;
-                sportSelect.appendChild(option);
-            });
+            elementsArray.forEach(selectElement => {
+                data.forEach(dataElement => {
+                    const option = document.createElement("option");
+                    option.value = dataElement;
+                    option.textContent = dataElement;
+                    selectElement.appendChild(option);
+                });
+            })
+            
+        } else {
+            console.error("Error fetching sports data:", response.statusText);
         }
     } catch (error) {
         console.error("Error fetching sports data:", error);
     }
 }
+
+
+
 
 
 

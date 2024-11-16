@@ -65,13 +65,19 @@ nav a:hover {
 .add-event-form input[type="text"],
 .add-event-form input[type="date"],
 .add-event-form input[type="time"],
+.add-event-form input[type="number"],
 .add-event-form select {
     width: 90%;
     padding: 8px;
     margin: 5px 0 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
+    box-sizing: border-box;
 }
+
+
+
+
 .add-event-form button {
     background-color: #4CAF50;
     color: white;
