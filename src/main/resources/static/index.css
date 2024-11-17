@@ -121,6 +121,11 @@ nav a:hover {
     color: red;
 }
 
+.add-event-success-message {
+    font-size: 22px;
+    color: rgb(16, 139, 0);
+}
+
 
 .no-events-message {
     font-size: 28px;

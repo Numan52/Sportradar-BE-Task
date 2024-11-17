@@ -22,9 +22,15 @@ public class DataLoader implements CommandLineRunner {
         String sqlFilePath = "src/main/resources/testData.sql";
 
         try {
-            String sql = new String(Files.readAllBytes(Paths.get(sqlFilePath)));
-            jdbcTemplate.execute(sql);
-            System.out.println("Test data loaded successfully.");
+            Integer count = jdbcTemplate.queryForObject("SELECT COUNT(*) FROM sport", Integer.class);
+            if (count == 0) {
+                String sql = new String(Files.readAllBytes(Paths.get(sqlFilePath)));
+                jdbcTemplate.execute(sql);
+                System.out.println("Test data loaded successfully.");
+            } else {
+                System.out.println("Test data was not loaded because the tables aren't empty.");
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Failed to load test data.");

@@ -183,6 +183,8 @@ function displayNoEventsFoundMsg() {
 
 
 async function sendEventDto(event) {
+    const addEventMessageDiv = document.getElementsByClassName("add-event-message").item(0)
+    addEventMessageDiv.classList.remove("add-event-success-message", "add-event-error-message")
     try {
         const response = await fetch("http://localhost:8080/api/events/addEvent", {
             method: "POST",
@@ -192,21 +194,37 @@ async function sendEventDto(event) {
             body: JSON.stringify(event)
         });
         
+        
+
         if (response.ok) {
             console.log("Event successfully added!");
+            addEventMessageDiv.style.display = "block"
+            addEventMessageDiv.classList.add("add-event-success-message")
+            addEventMessageDiv.textContent = "Event was added successfully"
             await displayEvents()
         } else {
             console.error("Failed to add event.");
-            const errorDiv = document.getElementsByClassName("add-event-error-message").item(0)
-            errorDiv.textContent = "An error occurred while adding a new event. Please try again."
+            addEventMessageDiv.style.display = "block"
+            addEventMessageDiv.classList.add("add-event-error-message")
+            addEventMessageDiv.textContent = "An error occurred while adding a new event. Please try again."
             
             window.scrollTo({
                 top: document.body.scrollHeight,
                 behavior: "smooth"
             });
         }
+        
+
     } catch (error) {
         console.error("Error:", error);
+
+        addEventMessageDiv.style.display = "block"
+        addEventMessageDiv.classList.add("add-event-error-message")
+        addEventMessageDiv.textContent = "A network error occurred. Please try again."
+    } finally {
+        setTimeout(function() {
+            addEventMessageDiv.style.display = "none"
+        }, 5000)
     }
 }
 
