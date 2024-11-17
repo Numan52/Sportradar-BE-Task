@@ -108,12 +108,13 @@ nav a:hover {
     display: flex;
     align-items: center;
     gap: 5px;
-
-    button {
-        margin-left: 5px;
-
-    }
 }
+
+.filter-form-options button {
+    margin-left: 5px;
+
+}
+
 
 
 .add-event-error-message {
